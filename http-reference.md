@@ -1,4 +1,5 @@
 HTTP for Pentesters — My Reference Notes
+
 Personal notes from TryHackMe "HTTP in Detail" + PortSwigger labs. Written in my own words as I learn.
 
 1. What HTTP actually is
