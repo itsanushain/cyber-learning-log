@@ -83,14 +83,18 @@ HTTP Methods
 
 Status Code Categories
 
-1xx	Informational — request received, continuing process.	
-Example: 101 Switching Protocols, seen during a WebSocket upgrade handshake.
+1xx	Informational — request received, continuing process.
+Example: 101 Switching Protocols, seen during a WebSocket upgrade handshake
+.
 2xx	Success — the request was received, understood, and accepted.	
 Example: 200 OK on a normal page load; 201 Created after registering an account.
+
 3xx	Redirection — further action needed to complete the request.	
 Example: 302 Found after a login redirecting me to /dashboard; useful to check for open redirects.
+
 4xx	Client error — something's wrong with my request.
 Example: 401 Unauthorized vs 403 Forbidden — I mix these up (see section 8); 404 Not Found while fuzzing directories.
+
 5xx	Server error — the server failed while handling a valid request.
 Example: 500 Internal Server Error when I break input parsing with a malformed payload — often leaks stack traces.
 
