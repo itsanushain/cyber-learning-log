@@ -175,47 +175,35 @@ Sometimes data in a request looks like gibberish (Base64, URL-encoded, etc). Dec
 Step 5 — HTTP History: the full log
 This shows every request and response Burp has seen so far. I scroll through it looking for anything interesting — weird headers, cookies, or error codes.
 
-Want me to update the doc with this version?
 
-Things I Found Confusing at First (and How I Resolved Them)
-"Stateless but I stay logged in — contradiction?" No — the protocol itself has no memory, but the application layers state on top using cookies/tokens (section 6). Every request is still independently "stateless" from HTTP's point of view; it's just carrying a piece of state (the session ID) as data. Separating "the protocol" from "what the app builds on top of it" is what made this click.
-401 vs 403 — I used to think they meant the same thing. 401 Unauthorized actually means "I don't know who you are" (missing/invalid authentication) — despite the confusing name, it's really about authentication. 403 Forbidden means "I know who you are, and you're not allowed" — that's authorization. Once I reframed it as authentication vs authorization, it stopped being confusing.
-GET vs POST for "security" — I assumed POST was inherently more secure because params aren't in the URL. It isn't — POST just hides the data from the URL bar/browser history, it does nothing for encryption or access control. Anyone with the raw traffic (or Burp) sees the body just as easily. The only real protection is HTTPS + proper server-side auth checks.
-Why editing Content-Length manually in Burp used to break my requests. If I hand-edited a body and left the old Content-Length, the server either truncated the body or hung waiting for more bytes. Now I let Burp auto-update it (it does, by default, in Repeater) instead of typing values myself.
-OPTIONS felt pointless until CORS clicked. I originally skipped it as "not a real method." It became useful once I understood browsers automatically fire an OPTIONS preflight before certain cross-origin requests, and the Access-Control-Allow-* response headers are the server's answer to "are you allowed to do this from that origin." That's when OPTIONS + CORS headers started being something I check together instead of ignoring.
-Cookies vs sessions vs tokens all blurred together. What fixed it: cookie = the transport mechanism (a header), session = the actual state, stored server-side, that the cookie value points to. A token (like a JWT) is a different pattern where the state itself is embedded in what's sent, self-contained and verifiable without a server-side lookup. Same goal (persist identity across stateless requests), different mechanism.make it look like i was writing it
+Things I Found Confusing at First 
 
-Message collapsed
+"Stateless but I stay logged in — contradiction?"
 
-Here's a version that reads like actual personal notes rather than a polished write-up:
+No — the protocol itself has no memory, but the application layers state on top using cookies/tokens (section 6). Every request is still independently "stateless" from HTTP's point of view; it's just carrying a piece of state (the session ID) as data. Separating "the protocol" from "what the app builds on top of it" is what made this click.
 
-8. Things I Found Confusing at First (and How I Resolved Them)
+401 vs 403 — I used to think they meant the same thing.
 
-"Wait, HTTP is stateless but I stay logged in... isn't that a contradiction?"
-Yeah this one messed with me for a bit. Turns out no — the protocol really doesn't remember anything, that part's true. But the app built on top of it fakes memory by shoving a session ID into a cookie and making me send it back every time (section 6). So technically every request is still stateless on its own, it's just now carrying a little piece of state as data. Once I stopped mixing up "the protocol" and "what apps do on top of the protocol," this made way more sense.
+401 Unauthorized actually means "I don't know who you are" (missing/invalid authentication) — despite the confusing name, it's really about authentication. 403 Forbidden means "I know who you are, and you're not allowed" — that's authorization. Once I reframed it as authentication vs authorization, it stopped being confusing.
 
-401 vs 403 — I genuinely thought these were basically the same error for ages.
-They're not. 401 Unauthorized is really the server saying "I have no idea who you are" — so it's actually about authentication, which is a weirdly misleading name for it honestly. 403 Forbidden means "I know exactly who you are, and no, you can't do that" — that's authorization. Once I started saying "authentication vs authorization" in my head instead of the status names, I stopped mixing them up.
+GET vs POST for "security" 
 
-I used to think POST was just... safer than GET.
-Because the data isn't sitting in the URL, right? Nope. That was a dumb assumption on my part. POST just hides it from the address bar and browser history — it does nothing about encryption or who's allowed to see it. If someone's watching the raw traffic (or literally just opening Burp), they see the POST body just as easily as a GET param. The actual protection is HTTPS + the server checking permissions properly, not the method I picked.
+I assumed POST was inherently more secure because params aren't in the URL. It isn't — POST just hides the data from the URL bar/browser history, it does nothing for encryption or access control. Anyone with the raw traffic (or Burp) sees the body just as easily. The only real protection is HTTPS + proper server-side auth checks.
 
-Content-Length randomly breaking my requests in Burp — this annoyed me for a while.
-I'd edit a body in Repeater, forget the Content-Length was still the old number, and the request would either get cut off or the server would just sit there waiting for more data. Eventually realized Burp updates this automatically for me by default — I don't need to touch it manually. Lesson: stop typing values I don't need to type.
+Why editing Content-Length manually in Burp used to break my requests.
 
-OPTIONS felt like a completely useless method... until CORS clicked for me.
-I used to just skip past it like it wasn't a "real" method. Then I learned browsers fire it automatically before certain cross-origin requests, as a sort of "hey am I even allowed to do this?" check — and the Access-Control-Allow-* headers coming back are literally the server's answer. Now when I see OPTIONS, I immediately go check the CORS headers next to it instead of ignoring it.
+If I hand-edited a body and left the old Content-Length, the server either truncated the body or hung waiting for more bytes. Now I let Burp auto-update it (it does, by default, in Repeater) instead of typing values myself.
 
-Cookies, sessions, tokens — these three words used to all blur into one concept for me.
-What finally untangled it: a cookie is just the delivery method — it's a header, nothing fancier than that. A session is the actual data, sitting on the server, that the cookie value points back to. A token (like a JWT) is a totally different approach — the data itself is packed inside the token, so the server can verify it just by checking a signature, no lookup needed. Different mechanism, same end goal: proving who I am across requests that otherwise have no memory of me.
+OPTIONS felt pointless until CORS clicked.
 
-Want this swapped into the doc?
+I originally skipped it as "not a real method." It became useful once I understood browsers automatically fire an OPTIONS preflight before certain cross-origin requests, and the Access-Control-Allow-* response headers are the server's answer to "are you allowed to do this from that origin." That's when OPTIONS + CORS headers started being something I check together instead of ignoring.
 
-make it smaller
+Cookies vs sessions vs tokens all blurred together.
 
-Here's a shorter version:
+What fixed it: cookie = the transport mechanism (a header), session = the actual state, stored server-side, that the cookie value points to. A token (like a JWT) is a different pattern where the state itself is embedded in what's sent, self-contained and verifiable without a server-side lookup. Same goal (persist identity across stateless requests), different mechanism.make it look like i was writing it
 
-8. Things I Found Confusing at First (and How I Resolved Them)
+ 
+Things I Found Confusing at First 
 
 Stateless but I stay logged in?
 Thought this was a contradiction. It's not — HTTP itself still has no memory, the app just fakes it by passing a session ID back and forth in a cookie.
