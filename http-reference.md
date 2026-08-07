@@ -50,17 +50,17 @@ Anatomy of a Response
 HTTP version, a numeric status code, and a short human-readable reason phrase. I care about the number, not the words next to it — servers can put whatever text they want there.
  2. Headers
     
-     Set-Cookie — the server's way of saying "save this cookie and send it back to me next time."
+     ..Set-Cookie — the server's way of saying "save this cookie and send it back to me next time."
      
-     Content-Type — tells your browser what kind of content it's receiving (HTML page, JSON form data, image, etc.).
+     ..Content-Type — tells your browser what kind of content it's receiving (HTML page, JSON form data, image, etc.).
      
-     Location — used with redirects to say "go to this URL instead."
+     ..Location — used with redirects to say "go to this URL instead."
      
-     Cache-Control — tells the browser whether it's okay to save a copy of this response for later.
+     ..Cache-Control — tells the browser whether it's okay to save a copy of this response for later.
      
-     Server / X-Powered-By — reveals what software/tech the server is running on.
+     ..Server / X-Powered-By — reveals what software/tech the server is running on.
      
-     Access-Control-Allow-Origin — says who else (which websites) is allowed to read this response.
+     ..Access-Control-Allow-Origin — says who else (which websites) is allowed to read this response.
      
 3. Body
 
