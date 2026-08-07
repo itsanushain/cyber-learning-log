@@ -6,7 +6,7 @@ Personal notes from TryHackMe "HTTP in Detail" + PortSwigger labs. Written in my
  
 HyperText Transfer Protocol(HTTP) is the language a browser and a web server use to talk to each other.It's a request-reply protocol — the client sends a request,
 the server sends back a response, and that's the entire conversation.The server only replies to what was asked ,Like a restaurant you (the client/browser)
-call the waiter (the server) and ask for something — "bring me the menu,".The waiter never walks up to your table and give you the menu,not the food you did'nt ask for.
+call the waiter (the server) and ask for something — "bring me the menu,".The waiter only walks up to your table and give you the menu,not the food you did'nt ask for.
 He only responds when you ask.Something that confused me at first was"Stateless" . It's like it doesn't "remember" that you logged in two requests ago. Each request
 has to carry everything the server needs to understand it on its own — that's why cookies/tokens exist,because the protocol itself has no built-in memory.About encryption
 HTTPS handles it.HTTP wrapped in TLS. When Burp intercepts "HTTPS traffic" it's actually terminating the TLS connection and showing me the plain HTTP underneath.
