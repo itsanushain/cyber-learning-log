@@ -22,6 +22,7 @@ Every request has three parts, always in this order: a start line, headers, then
 #GET /profile?user=daniel HTTP/1.1
 
 Three pieces: the METHOD (what I want to do), the PATH + query string (what resource, and any parameters), and the HTTP VERSION. This one line tells the server everything about intent before it even reads a single header.
+
 2. Headers
   
 ..Host — tells the server which website you want, since one server can host many.
