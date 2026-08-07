@@ -24,13 +24,20 @@ Every request has three parts, always in this order: a start line, headers, then
 Three pieces: the METHOD (what I want to do), the PATH + query string (what resource, and any parameters), and the HTTP VERSION. This one line tells the server everything about intent before it even reads a single header.
 2. Headers
   
->Host — tells the server which website you want, since one server can host many.
->User-Agent — says what browser/device you're using (but it's easy to lie about).
->Cookie — sends your saved session ID back so the server remembers you're logged in.
->Content-Type — tells the server what format the data you're sending is in (JSON, form data, etc.).
->Content-Length — tells the server how many bytes of data to expect in the body.
->Authorization — carries your login credentials or access token.
->X-Forwarded-For — shows the original visitor's IP address when a proxy is in the middle.
+..Host — tells the server which website you want, since one server can host many.
+
+..User-Agent — says what browser/device you're using (but it's easy to lie about).
+
+..Cookie — sends your saved session ID back so the server remembers you're logged in.
+
+..Content-Type — tells the server what format the data you're sending is in (JSON, form data, etc.).
+
+..Content-Length — tells the server how many bytes of data to expect in the body.
+
+..Authorization — carries your login credentials or access token.
+
+..X-Forwarded-For — shows the original visitor's IP address when a proxy is in the middle.
+
 3. Body
 
 The body is where the actual "stuff" you're sending lives — like the text you typed in a form, a JSON object, or a file you're uploading. Not every request has one. A simple GET (just asking for a page) usually doesn't need a body — but POST, PUT, and PATCH (things that send data to the server) usually do.
