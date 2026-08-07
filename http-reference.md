@@ -36,7 +36,6 @@ Three pieces: the METHOD (what I want to do), the PATH + query string (what reso
 
 ..Authorization — carries your login credentials or access token.
 
-..X-Forwarded-For — shows the original visitor's IP address when a proxy is in the middle.
 
 3. Body
 
