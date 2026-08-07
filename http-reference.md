@@ -68,12 +68,17 @@ The actual content — HTML, JSON, an image, a file download, whatever. This is 
 
 HTTP Methods
 
->GET - Asks for data, doesn't change anything.Data shows up in the URL — can leak in history/logs. Risky if used to trigger actions (CSRF).
->POST	- Sends new data to the server.	Main spot to test for injection attacks (SQLi, XSS) and login abuse.
->PUT	- Replaces/uploads a resource.	If open to anyone, attackers can overwrite or upload files.
->DELETE -	Removes a resource.	If not properly protected, anyone could delete things they shouldn't.
->OPTIONS	- Asks "what methods are allowed here?"	Quick way to check if risky methods (PUT/DELETE) are enabled.
->HEAD	- Same as GET, but no body — just headers.	Lets you check if something exists without downloading it — good for stealthy recon.
+..GET - Asks for data, doesn't change anything.Data shows up in the URL — can leak in history/logs. Risky if used to trigger actions (CSRF).
+
+..POST	- Sends new data to the server.	Main spot to test for injection attacks (SQLi, XSS) and login abuse.
+
+..PUT	- Replaces/uploads a resource.	If open to anyone, attackers can overwrite or upload files.
+
+..DELETE -	Removes a resource.	If not properly protected, anyone could delete things they shouldn't.
+
+..OPTIONS	- Asks "what methods are allowed here?"	Quick way to check if risky methods (PUT/DELETE) are enabled.
+
+..HEAD	- Same as GET, but no body — just headers.	Lets you check if something exists without downloading it — good for stealthy recon.
 
 
 Status Code Categories
