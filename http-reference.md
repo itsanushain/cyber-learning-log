@@ -125,8 +125,11 @@ On each request, the server sees user123, looks it up in its own storage, and go
 Why the flags on that Set-Cookie line matter:
 
 >>HttpOnly — stops JavaScript on the page from reading the cookie. If a hacker sneaks in a malicious script (XSS), they still can't steal your session ID.
+
 >>Secure — the cookie is only ever sent over HTTPS, never plain unencrypted HTTP, so it can't be sniffed on the network.
+
 >>SameSite — controls whether the cookie gets sent when the request comes from a different website. This is what stops CSRF attacks, where another site tries to trick your browser into acting on your behalf.
+
 
 How this connects to Burp Suite
 
