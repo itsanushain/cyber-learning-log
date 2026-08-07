@@ -1,6 +1,6 @@
 HTTP for Pentesters — My Reference Notes
 
-Personal notes from TryHackMe "HTTP in Detail" + PortSwigger labs. Written in my own words as I learn.
+Personal notes from TryHackMe "HTTP in Detail" + PortSwigger labs. Written in my own words 
 
 1. What HTTP actually is
 HyperText Transfer Protocol(HTTP) is the language a browser and a web server use to talk to each other.It's a request-reply protocol — the client sends a request,
