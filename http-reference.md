@@ -10,6 +10,7 @@ call the waiter (the server) and ask for something — "bring me the menu,".The 
 He only responds when you ask.Something that confused me at first was"Stateless" . It's like it doesn't "remember" that you logged in two requests ago. Each request
 has to carry everything the server needs to understand it on its own — that's why cookies/tokens exist,because the protocol itself has no built-in memory.About encryption
 HTTPS handles it.HTTP wrapped in TLS. When Burp intercepts "HTTPS traffic" it's actually terminating the TLS connection and showing me the plain HTTP underneath.
+
 *HTTP--PORT 80
 *HTTPS--PORT 443
 
@@ -19,8 +20,9 @@ Every request has three parts, always in this order: a start line, headers, then
 1. Method line
 
 #GET /profile?user=daniel HTTP/1.1
+
 Three pieces: the METHOD (what I want to do), the PATH + query string (what resource, and any parameters), and the HTTP VERSION. This one line tells the server everything about intent before it even reads a single header.
-3. Headers
+2. Headers
   
 >Host — tells the server which website you want, since one server can host many.
 >User-Agent — says what browser/device you're using (but it's easy to lie about).
@@ -38,6 +40,7 @@ Anatomy of a Response
  1. Status line
     
 #HTTP/1.1 200 OK
+
 HTTP version, a numeric status code, and a short human-readable reason phrase. I care about the number, not the words next to it — servers can put whatever text they want there.
  2. Headers
     
