@@ -152,32 +152,6 @@ Sometimes data in a request looks like gibberish (Base64, URL-encoded, etc). Dec
 Step 5 — HTTP History
 This shows every request and response Burp has seen so far. I scroll through it looking for anything interesting — weird headers, cookies, or error codes.
 
-
-Things I found confusing at first
-Claude finished the response
-
-Here's the simplest version:
-
-7. How This Connects to Burp Suite
-
-Burp basically shows me everything I already learned in sections 2–3, just on a screen. Here's how I use it, step by step:
-
-Step 1 — Proxy: watch the traffic
-Burp sits in the middle between my browser and the website. Every request I send and every response I get passes through here first — so I can literally see the raw request and response.
-
-Step 2 — Repeater: edit and resend
-I take one request I want to test, send it to Repeater, and manually change things — a header, a parameter, the method — then hit send and see what response comes back.
-
-Step 3 — Intruder: automate it
-Instead of testing one value at a time by hand, Intruder does it automatically — it takes my request, swaps in a list of different values one by one, and fires them all off for me.
-
-Step 4 — Decoder: read scrambled data
-Sometimes data in a request looks like gibberish (Base64, URL-encoded, etc). Decoder converts it back into normal readable text.
-
-Step 5 — HTTP History: the full log
-This shows every request and response Burp has seen so far. I scroll through it looking for anything interesting — weird headers, cookies, or error codes.
-
-
 Things I Found Confusing at First 
 
 "Stateless but I stay logged in — contradiction?"
@@ -199,36 +173,6 @@ If I hand-edited a body and left the old Content-Length, the server either trunc
 OPTIONS felt pointless until CORS clicked.
 
 I originally skipped it as "not a real method." It became useful once I understood browsers automatically fire an OPTIONS preflight before certain cross-origin requests, and the Access-Control-Allow-* response headers are the server's answer to "are you allowed to do this from that origin." That's when OPTIONS + CORS headers started being something I check together instead of ignoring.
-
-Cookies vs sessions vs tokens all blurred together.
-
-What fixed it: cookie = the transport mechanism (a header), session = the actual state, stored server-side, that the cookie value points to. A token (like a JWT) is a different pattern where the state itself is embedded in what's sent, self-contained and verifiable without a server-side lookup. Same goal (persist identity across stateless requests), different mechanism.make it look like i was writing it
-
- 
-Things I Found Confusing at First 
-
-Stateless but I stay logged in?
-Thought this was a contradiction. It's not — HTTP itself still has no memory, the app just fakes it by passing a session ID back and forth in a cookie.
-
-401 vs 403
-
-Used to think these were the same. 401 = "I don't know who you are" (authentication). 403 = "I know who you are, but no" (authorization). Saying it that way finally made it stick.
-
-Thought POST was "safer" than GET
-
-It's not. POST just keeps data out of the URL bar — doesn't encrypt it or protect it. Anyone watching raw traffic sees it just fine. HTTPS + real auth checks are what actually matter.
-
-Content-Length kept breaking my requests
-
-Edited a body in Repeater, forgot to update Content-Length, request got cut off or hung. Turns out Burp auto-updates this for me — stopped touching it manually.
-
-OPTIONS seemed pointless — until CORS clicked
-
-Used to skip right past it. Then realized browsers fire it automatically before certain cross-origin requests, and the Access-Control-Allow-* headers are the server's answer. Now I check them together.
-
-Cookies vs sessions vs tokens all blurred together
-
-Cookie = the delivery method (a header). Session = the real data, stored server-side, that the cookie points to. Token (JWT) = data packed into the token itself, verified without a server lookup. Same goal, different mechanism.
 
 References
 
