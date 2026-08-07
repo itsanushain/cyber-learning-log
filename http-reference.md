@@ -49,6 +49,7 @@ Anatomy of a Response
 #HTTP/1.1 200 OK
 
 HTTP version, a numeric status code, and a short human-readable reason phrase. I care about the number, not the words next to it — servers can put whatever text they want there.
+
  2. Headers
     
      ..Set-Cookie — the server's way of saying "save this cookie and send it back to me next time."
